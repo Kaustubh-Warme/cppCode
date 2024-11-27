@@ -50,10 +50,8 @@ void mergeSort(vector<int> & vec, int left, int right)
 	if ( left < right)
 	{
 		int mid = left + (right-left) / 2;
-		
 		mergeSort(vec, left, mid);
 		mergeSort(vec, mid+1, right);
-		
 		merge(vec, left, mid, right);
 	}
 }
@@ -63,11 +61,9 @@ int main()
 {	
 	int num;
 	vector<int> vec;
-	
 	cout << "Enter number of elements: ";
 	cin >> num;
 	cout << endl;
-	
 	for (int i = 0; i < num; i++)
 	{
 		int element;
