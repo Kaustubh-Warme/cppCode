@@ -50,7 +50,7 @@ void jobScheduling(vector<Job> & jobs, int timeSlots)
 	{
 		if(slot[i])
 		{
-	cout << "Job " << jobs[result[i]].id << " with deadline" << jobs[result[i]].deadline << endl;
+	cout << "Job " << jobs[result[i]].id << " with deadline " << jobs[result[i]].deadline << endl;
 		}
 	}
 	

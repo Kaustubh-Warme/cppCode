@@ -3,18 +3,15 @@
 #include <vector>
 
 using namespace std;
-//table size
 const int TABLE_SIZE = 10;
 
 
-//define key-value pair
 struct Client
 {
 	string name;
 	string phoneNum;
 };
 
-//defin hash function
 int hashFunction(string name, int tableSize)
 {
 	int hash = 0;
@@ -27,34 +24,26 @@ int hashFunction(string name, int tableSize)
 	return hash%tableSize;
 }
 
-//define class for seprate chaining
 class HashTableChaining
 {
 	private:
-	//declare hashtable. vector of list of pairs of key-value
 	vector<list<pair<string, string>>> table;
 	
 	public:
-	//constructor
 	HashTableChaining() { table.resize(TABLE_SIZE); }
 	
-	//insert function
 	void insert(string name, string phoneNum)
 	{
 		int index = hashFunction(name, TABLE_SIZE);
 		table[index].push_back(make_pair(name, phoneNum));
 	}
 	
-	//search function
 	string search(string name, int & comparisons)
 	{	
-		//calculate index
 		int index = hashFunction(name, TABLE_SIZE);
 		
-		//for list at that index
 		for(auto&entry : table[index])
 		{	
-			//search for the key linearly
 			comparisons++;
 			if (entry.first == name)
 				return entry.second;
@@ -68,21 +57,17 @@ class HashTableChaining
 class HashTableLinearProbing
 {
 	private:
-	//table of key-value
 	vector<pair<string, string>> table;
 	
-	//list of available spaces
 	vector<bool> isOccupied;
 	
 	public:
-	//constructor
 	HashTableLinearProbing()
 	{
 		table.resize(TABLE_SIZE, {"", ""});
 		isOccupied.resize(TABLE_SIZE, false);
 	}
 	
-	//insert function
 	void insert(string name, string phoneNum)
 	{
 		int index = hashFunction(name, TABLE_SIZE);
@@ -96,29 +81,23 @@ class HashTableLinearProbing
 		isOccupied[index] = true;
 	}
 	
-	//search function
 	string search(string name, int & comparisons)
 	{	
-		//calculate index from hash function
 		int index = hashFunction(name, TABLE_SIZE);
 		int startIndex = index;
 		
 		while(isOccupied[index])
 		{	
-			//increase comparisons
 			comparisons++;
 			
-			//if key found, return the value
 			if (table[index].first == name)
 			{
 				return table[index].second;
 			}
 			
-			//else increase the index linearly 
-			//and start loop with new index value
+
 			index = (index+1)%TABLE_SIZE;
 			
-			//if circled back, then break
 			if (index == startIndex)
 				break;
 		}
@@ -132,7 +111,6 @@ class HashTableLinearProbing
 int main()
 {
 	
-	//declare key-value list
 	vector<Client> clients;
 	
 	
@@ -145,7 +123,6 @@ int main()
 	
 	cout << "Enter name and phone numbers for the clients" << endl;
 	
-	//insert value in key-value list
 	for (int i = 0; i < numClients; i++)
 	{
 		cout << "Client " << i + 1 << "\t name: ";
@@ -160,11 +137,9 @@ int main()
 		cout << endl;
 	}
 	
-	//declare objects for chaining and probing
 	HashTableChaining htChaining;
 	HashTableLinearProbing htLinearProbing;
 	
-	//insert each key-value in chaining and  
 	for (const auto & client : clients)
 	{
 		htChaining.insert(client.name, client.phoneNum);
@@ -172,9 +147,7 @@ int main()
 	}
 	
 	cout << "Enter 0 to quit";
-	
-	
-	//display comparisons for all the key values;
+	cout << endl;
 	while(true)
 	{
 		string searchName;
